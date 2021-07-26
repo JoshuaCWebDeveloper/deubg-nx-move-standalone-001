@@ -1,12 +1,40 @@
+Nx workspace:move resets standalone config, deletes project.json.
 
-
-# NxDebug
-
-This project was generated using [Nx](https://nx.dev).
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
-
-🔎 **Smart, Extensible Build Framework**
+The following details the commands I ran to create the workspace and reproduce this issue. This should also match the commit history of the repo.
+```
+ 2001  npx create-nx-workspace
+ 2002  git status
+ 2003  git init
+ 2004  git status
+ 2005  rm -rf .git
+ 2006  git status
+ 2007  cd nx-debug/
+ 2008  git status
+ 2009  git hist -20
+ 2010  npm run nx -- g @nrwl/workspace:convert-to-nx-project --all
+ 2011  git status
+ 2012  git add .
+ 2013  git commit -m "Convert to standalone project"
+ 2014  git status
+ 2015  npm run nx -- g @nrwl/workspace:move --projectName nx-debug --destination nx-debug-app
+ 2016  git status
+ 2017  rm -rf apps
+ 2018  git checkout .
+ 2019  git status
+ 2020  node_modules/.bin/nx g @nrwl/workspace:move --projectName nx-debug --destination nx-debug-app
+ 2021  rm -rf apps
+ 2022  git checkout .
+ 2023  git status
+ 2024  npm run nx -- g @nrwl/workspace:move --projectName nx-debug --destination nx-debug-app
+ 2025  git status
+ 2026  git add .
+ 2027  git status
+ 2028  git commit -m "Rename nx-deubg to nx-debug-app (removes project.json)"
+ 2029  git status
+ 2030  history
+ 2031  git status
+ 2032  git commit -am "Update README.md with history"
+ ```
 
 ## Adding capabilities to your workspace
 
