@@ -1,10 +1,59 @@
 {
   "version": 2,
   "projects": {
-    "nx-debug": "apps/nx-debug"
+    "nx-debug-app": {
+      "root": "apps/nx-debug-app",
+      "sourceRoot": "apps/nx-debug-app/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/nx-debug-app",
+            "main": "apps/nx-debug-app/src/main.ts",
+            "tsConfig": "apps/nx-debug-app/tsconfig.app.json",
+            "assets": ["apps/nx-debug-app/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/nx-debug-app/src/environments/environment.ts",
+                  "with": "apps/nx-debug-app/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "nx-debug-app:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/nx-debug-app/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/nx-debug-app"],
+          "options": {
+            "jestConfig": "apps/nx-debug-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
   },
   "cli": {
     "defaultCollection": "@nrwl/nest"
   },
-  "defaultProject": "nx-debug"
+  "defaultProject": "nx-debug-app"
 }

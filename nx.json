@@ -26,5 +26,9 @@
       }
     ]
   },
-  "projects": {}
+  "projects": {
+    "nx-debug-app": {
+      "tags": []
+    }
+  }
 }
